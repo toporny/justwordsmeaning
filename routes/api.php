@@ -18,11 +18,20 @@ use Illuminate\Http\Request;
 // });
 
 Route::middleware('jwt.auth')->get('/user', function (Request $request) {
-    return ['name' => 'sdfsdfsdf'];  // ???????????????????????????????
+	$token = JWTAuth::getToken();
+	$user = JWTAuth::toUser($token);
+
+	return $user;
+
+
 });
 
 // https://www.youtube.com/watch?v=GyLAk6h8RW8&list=PLZAiN3wmUtzUHBDUI6F5Ks3t-U-wVRIV2&index=5
 
-Route::get('/authenticate', [
+Route::post('/authenticate', [
 	'uses' => 'ApiAuthController@authenticate'
+]); 
+
+Route::post('/ ', [
+	'uses' => 'ApiAuthController@register'
 ]); 
